@@ -1,0 +1,11 @@
+{% for i in (1..shop.metafields.sf_retailers_list.size) %}
+	{% assign retailer_id = retailer-list | append: '_' | append: i %}
+	{% assign retailer_namespace = shop.metafields.sf_retailers_list[retailer_id] %}
+	{% assign retailer = shop.metafields[retailer_namespace] %}
+	
+	{% if retailer.name %}
+		{% include 'retailer-list-item' %}
+	{% else %}
+		{% break %}
+	{% endif %}
+{% endfor %}

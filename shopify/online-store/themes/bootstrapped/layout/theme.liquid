@@ -1,0 +1,299 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js ie6 oldie" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie7 oldie" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie8 oldie" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+{% include 'limespot-global-head-includes' %}
+
+  <link rel="shortcut icon" href="{{ 'favicon.ico' | asset_url }}" type="image/x-icon">
+  <meta charset="utf-8" />
+  <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' /><![endif]-->
+  <meta name="msvalidate.01" content="0CBD98BE9B12C3F3B85956E50CD151E0" />
+
+  <title>
+    {% comment %}{{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}{% endcomment %}
+    Jamnation &ndash; damn good jam
+  </title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}" />
+  {% endif %}
+
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+  
+  <link rel="canonical" href="{{ canonical_url }}" />
+
+  {% include 'fb-open-graph-tags' %}
+  {% include 'twitter-cards' %}
+
+  {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+  {{ 'font.naive.macarons.css' | asset_url | stylesheet_tag }}
+  {{ 'font.brandongrotesque.css' | asset_url | stylesheet_tag }}
+  <link href="https://cloud.webtype.com/css/87ed4555-9acc-45ba-8238-90bd636379eb.css" rel="stylesheet" type="text/css" />
+  {{ 'jamnation.css' | asset_url | stylesheet_tag }}
+  
+  {{ content_for_header }}
+  
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
+  {{ '//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js' | script_tag }}
+  {{ '//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.min.js' | script_tag }}
+  {{ 'bootstrap.min.js' | asset_url | script_tag }}
+    
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+
+  {% if template contains 'customers' %}
+  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+  {% endif %}
+  {{ 'scripts.js' | asset_url | script_tag }}
+  {{ 'jamnation.js' | asset_url | script_tag }}
+  {{ 'related-products.js' | asset_url | script_tag }}
+</head>
+
+<body>
+  <nav class="visible-xs navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed navbar-left" data-toggle="collapse" data-target="#navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" class="navbar-brand">Home</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="nav navbar-nav">
+          {% for link in linklists.main-menu.links %}
+          {% if linklists[link.handle] == empty %}
+          <li class="{% if link.active %} active{% endif %}">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+          {% else %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              {{ link.title }}
+              <!--<span class="caret"></span>-->
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              {% for l in linklists[link.handle].links %}
+              <li role="presentation" class="{% if l.active %} active{% endif %}">
+                <a href="{{ l.url }}">{{ l.title }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+          {% if shop.customer_accounts_enabled %}
+            {% if customer  %}
+          	<li>
+              <a href="/account">Account</a>
+          	</li>
+            {% else %}
+          	<li>
+              {{ 'Login' | customer_login_link }}
+          	</li>
+            {% comment %}
+              {% if shop.customer_accounts_optional %}
+              <span class="or">or</span>
+              {{ 'Register' | customer_register_link }}
+              {% endif %}
+            {% endcomment %}
+            {% endif %}
+          {% endif %}
+          
+          <li>
+            <a href="/cart" class="cart" title="Shopping Cart">
+            	Cart ({{ cart.item_count }})</a>
+          </li>
+          {% if cart.item_count != 0 %}
+          <li>
+            <a href="/cart" title="Checkout">Check out</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>  
+  
+  <div class="body-content container">
+    <div class="row font-macarons">
+      <div class="col-sm-6">
+        {% include 'header-top-left-content' %}
+        <div>
+        	{{ pages.header-message.content }}
+        </div>
+      </div>
+      <div class="hidden-xs col-sm-6 text-right">
+        {% include 'customer_links' %}
+        |
+        <a href="/cart" class="cart" title="Shopping Cart">
+          cart (<span id="cart-count">{{ cart.item_count }}</span>)</a>
+        {% if cart.item_count != 0 %}
+        |
+        <a href="/cart" title="Checkout">check out</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <br class="visible-xs" />
+  
+  <!-- Begin wrapper -->
+  <div id="transparency" class="container">
+    <!-- Begin below navigation -->
+    <div class="text-center logo">
+      {% if settings.use_logo %}
+      <h1><a href="/"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" /></a></h1>
+      {% if template == 'index' %}
+      <h1 style="display:none"><a href="/">{{ shop.name }}</a></h1>
+      {% endif %}
+      {% else %}
+      <h1><a href="/">{{ shop.name }}</a></h1>
+      {% endif %}
+    </div>
+    <br class="visible-xs" />
+    
+    <section id="nav" class="hidden-xs">
+      <div class="centered-pills">
+      {% include 'dropdown' %}
+      </div>
+    </section>
+    <!-- End below navigation -->
+    
+    <!-- Begin content-->
+    <section id="content">
+      {% if template == "list-collections" %}
+      <div id="collection" class="row">
+        <div class="span12">
+          <h1><span>Product Collections</span></h1>
+        </div> <!-- /.span12 -->
+      </div> <!-- /.row -->
+
+      <div class="row products masonry">
+        {% for collection in collections %}
+        {% unless collection.all_products_count == 0 or collection.handle == "frontpage" %}
+        {% include 'collection-loop' %}
+        {% endunless %}
+        {% endfor %}
+      </div> <!-- /#collection.row -->
+      {% else %}
+      {{ content_for_layout }}
+      {% endif %}
+    </section>
+    <!-- End content-->
+  </div>
+  <!-- End wrapper -->
+  
+  <!-- Begin footer -->
+  <div class="container">
+    <footer>
+      <!-- Begin footer navigation -->
+      {% if settings.footer_linklist != '' and linklists[settings.footer_linklist].links.size > 0 %}
+      <div class="foot-rule hidden-xs text-center">
+        <ul class="list-inline">
+          {% for link in linklists[settings.footer_linklist].links %}
+          <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+          <li>|</li>
+          {% endfor %}
+          {% if settings.facebook_link != blank %}<li><a href="{{ settings.facebook_link }}" title="{{ shop.name }} on Facebook" target="_blank"><img src="{{ 'social-facebook.png' | asset_url }}" alt="Facebook" /></a></li>{% endif %}          
+          {% if settings.pinterest_link != blank %}<li><a href="{{ settings.pinterest_link }}" title="{{ shop.name }} on Pinterest" target="_blank"><img src="{{ 'social-pinterest.png' | asset_url }}" alt="Pinterest" /></a></li>{% endif %}
+          {% if settings.twitter_link != blank %}<li><a href="{{ settings.twitter_link }}" title="{{ shop.name }} on Twitter" target="_blank"><img src="{{ 'social-twitter.png' | asset_url }}" alt="Twitter" /></a></li>{% endif %}
+          {% if settings.instagram_link != blank %}<li><a href="{{ settings.instagram_link }}" title="{{ shop.name }} on Instagram" target="_blank"><img src="{{ 'social-instagram.png' | asset_url }}" alt="Instagram" /></a></li>{% endif %}
+        </ul>
+      </div>
+      <div class="foot-rule-xs visible-xs text-center">
+        <ul class="list-unstyled">
+          {% for link in linklists[settings.footer_linklist].links %}
+          <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+          {% endfor %}
+          <li>
+            <ul class="list-inline">
+              {% if settings.facebook_link != blank %}<li><a href="{{ settings.facebook_link }}" title="{{ shop.name }} on Facebook" target="_blank"><img src="{{ 'social-facebook.png' | asset_url }}" alt="Facebook" /></a></li>{% endif %}          
+              {% if settings.pinterest_link != blank %}<li><a href="{{ settings.pinterest_link }}" title="{{ shop.name }} on Pinterest" target="_blank"><img src="{{ 'social-pinterest.png' | asset_url }}" alt="Pinterest" /></a></li>{% endif %}
+              {% if settings.twitter_link != blank %}<li><a href="{{ settings.twitter_link }}" title="{{ shop.name }} on Twitter" target="_blank"><img src="{{ 'social-twitter.png' | asset_url }}" alt="Twitter" /></a></li>{% endif %}
+              {% if settings.instagram_link != blank %}<li><a href="{{ settings.instagram_link }}" title="{{ shop.name }} on Instagram" target="_blank"><img src="{{ 'social-instagram.png' | asset_url }}" alt="Instagram" /></a></li>{% endif %}
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- End footer navigation -->
+      {% endif %}
+      
+      <!-- Begin copyright -->
+      <div class="text-center tc copyright">
+        <p>&copy; Jamnation LLC | All Rights Reserved</p>
+      </div>
+      <!-- End copyright -->
+    </footer>
+  </div>
+  <!-- End footer -->
+    
+  {{ 'jquery.flexslider-min.js' | asset_url | script_tag }}
+
+  {% if settings.enable_product_image_zoom %}
+    {{ 'jquery.zoom.min.js' | asset_url | script_tag }}
+  {% endif %}
+  {{ 'jquery.tweet.js' | asset_url | script_tag }}
+  {{ 'jquery.fancybox.js' | asset_url | script_tag }}
+
+  
+  {% if template contains 'product' %}
+  
+  <script>
+
+  var selectCallback = function(variant, selector) {
+    
+     if (variant && variant.featured_image) {
+      var newImage = variant.featured_image; // New image object.
+      var mainImageDomEl = jQuery('.featured img')[0]; // DOM element of main image we need to swap.
+      Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
+    }
+    
+    if (variant && variant.available) {
+      jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled');
+      if(variant.price < variant.compare_at_price){
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + " <del>" + Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + "</del>");
+      } else {
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}"));
+      }
+    } else {
+      jQuery('#add-to-cart').addClass('disabled').attr('disabled', 'disabled');
+      var message = variant ? "Sold Out" : "Unavailable";
+      jQuery('#price-preview').text(message);
+    }
+  };
+  
+  jQuery(document).ready(function($){
+    //new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first | escape }}</label>');
+    {% endif %}
+  
+
+  });
+          
+  </script>
+  
+  {% endif %}
+  
+  <script>
+    /*$(function() {
+      $('.dropdown').hover(function(){ 
+        $('.dropdown-toggle', this).trigger('click'); 
+      });
+    });*/
+  </script>  
+<link href="https://limespot.azureedge.net/storefront/2.0.0/css/recommendations.min.css" rel="stylesheet" />
+{% include 'limespot-custom-css' %}
+</body>
+</html>

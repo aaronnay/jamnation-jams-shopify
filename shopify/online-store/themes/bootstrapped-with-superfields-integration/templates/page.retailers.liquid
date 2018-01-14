@@ -1,0 +1,51 @@
+{{ page.content }}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>san francisco</h3>
+				{% include 'retailer-list' with 'san_francisco' %}
+              
+              	<br />
+                <h3>northern california</h3>
+              	{% include 'retailer-list' with 'northern_california' %}
+              
+              	<br />
+              	<h3>pacific northwest</h3>
+              	{% include 'retailer-list' with 'pacific_northwest' %}
+              
+              	<br />
+              	<h3>online</h3>
+              	{% include 'retailer-list' with 'online' %}
+          	</div>
+            <div class="col-sm-6">
+                <br class="visible-xs" />
+                <h3>east bay</h3>
+              	{% include 'retailer-list' with 'east_bay' %}
+              
+              	<br />
+              	<h3>south bay</h3>
+              	{% include 'retailer-list' with 'south_bay' %}
+              
+              	<br />
+              	<h3>marin</h3>
+              	{% include 'retailer-list' with 'marin' %}
+              
+              	<br />
+              	<h3>southwest</h3>
+              	{% include 'retailer-list' with 'southwest' %}
+              
+              	<br />
+              	<h3>midwest</h3>
+              	{% include 'retailer-list' with 'midwest' %}
+              
+              	<br />
+              	<h3>east coast</h3>
+              	{% include 'retailer-list' with 'east_coast' %}
+          	</div>
+        </div>
+    </div>
+</div>

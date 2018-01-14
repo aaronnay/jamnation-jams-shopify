@@ -1,0 +1,121 @@
+body {
+  font-family: 'BrandonGrotesque-Regular';
+}
+
+h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a, h6, h6 a,
+.title, .title a, .subtitle, .action_button, .sign_up {
+  font-family: 'Aunt Mildred MVB LF' !important;
+  text-transform: lowercase !important;
+}
+
+.header-bar {
+  font-family: 'NaiveBold' !important;
+  text-transform: uppercase !important;
+  text-align: center;
+  padding: 18px 0 22px;
+  margin-bottom: 42px;
+  background-color: #000000;
+  color: #ffffff;
+}
+h1.header-bar {
+  font-size: 1.75rem;
+}
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  h1.header-bar {
+    font-size: 2.25rem;
+  }
+}
+
+.promo_banner-close, .promo_banner .icon-close, .promo_banner_mobile .icon-close {
+  display: none !important;
+}
+
+.product-title {
+  text-align: center !important;
+  margin-bottom: 0;
+}
+
+.headline, #nav, #nav a, .menu, .menu a, #header a span, .nav a.icon-cart span,
+.search-close, .feature_image div.header_bar .nav a { 
+  font-family: 'NaiveBold' !important;
+  text-transform: uppercase !important;
+}
+
+.slideshow-section .action_button {
+  border: none !important;
+  background-color: #222222 !important;
+  color: #ffffff !important;
+}
+.slideshow-section .action_button:hover {
+  background-color: #000000 !important;
+}
+
+.action_button, .cart-button, .sign_up {
+  -webkit-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+
+blockquote {
+  background-color: #e6e6e6;
+  border: none;
+  padding: 10px;
+  margin: 0;
+  font-size: inherit;
+  font-style: inherit;
+}
+blockquote p {
+  font-style: inherit;
+}
+
+.description[itemprop='description'] {
+  margin-bottom: 30px;
+}
+
+a.underline {
+  text-decoration: underline;
+}
+
+ul.tag-filter-list li {
+  display: inline;
+  margin-left: 12px;
+}
+
+.uppercase {
+  text-transform: uppercase !important;
+}
+.lowercase {
+  text-transform: lowercase !important;
+}
+
+.display-inline {
+  display: inline;
+}
+.display-none {
+  display: none;
+}
+
+div.left-side-vr {
+  border-right: none;
+}
+div.right-side-vr {
+  border-right: none;
+}
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  div.left-side-vr {
+    border-left: 1px solid #e6e6e6;
+  }
+  div.right-side-vr {
+	border-right: 1px solid #e6e6e6;
+  }
+}
+
+.modal .content {
+  padding-top: 0 !important;
+}
+
+img.img-thumbnail-custom {
+  border: 1px solid #ccc;
+  border-top: 7px solid #000;
+}

@@ -1,0 +1,8 @@
+{% for i in (1..article.metafields.sf_products_list.size) %}
+	{% assign article_product_metafield = 'product_' | append: i %}
+	{% assign article_product = all_products[article.metafields.sf_products_list[article_product_metafield]] %}
+	
+	{% unless article_product.empty? %}
+		{% include 'product-thumbnail', product: article_product, products_per_row: 3 %}
+	{% endunless %}
+{% endfor %}

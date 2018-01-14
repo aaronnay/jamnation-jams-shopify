@@ -1,0 +1,263 @@
+<div id="product" class="{{ product.handle }}" itemscope itemtype="http://schema.org/Product">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
+  
+  {% if product.metafields.prod-details.hdr-img %}
+  <img src="{{ product.metafields.prod-details.hdr-img }}" alt="{{ product.title }}" class="img-responsive" />
+  {% else %}
+  <h1 class="collection-title header-bar text-center">{{ product.title }}</h1>
+  {% endif %}
+  <br /><br />
+  
+  <!-- Begin breadcrumb -->
+  <div class="row">
+    <div class="span12 col-xs-12">
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <a href="{{ shop.url }}" class="underline" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">Home</span></a>
+      </span> 
+      <span class="arrow-space">&#62;</span>
+      <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      {% if collection %}
+        <a href="{{ collection.url }}" class="underline" title="{{ collection.title | escape }}" itemprop="url"><span itemprop="title">{{ collection.title }}<span></a>
+      {% else %}
+        <a href="/collections/all" class="underline" title="All Products" itemprop="url"><span itemprop="title">Products</span></a>
+      {% endif %}
+      </span>
+      <span class="arrow-space">&#62;</span>
+      <strong>{{ product.title }}</strong>
+    </div>
+  </div>
+  <!-- End breadcrumb -->
+  <br />
+
+  <div class="row">
+    <!-- Begin product photos -->
+    <div class="span6 col-sm-6">
+      
+      <div class="hidden-xs">
+        <!-- Begin featured image -->
+        <div class="image featured">
+          {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+          {% if settings.enable_product_image_zoom %}
+            <img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}" class="img-responsive img-thumbnail-custom" />
+          {% else %}
+            <img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}" class="img-responsive img-thumbnail-custom" />
+          {% endif %}
+        </div>
+        <!-- End product image -->
+        <br />
+
+        {% if product.images.size > 1 %}
+        <!-- Begin thumbnails -->
+        <div class="thumbs row">
+          {% for image in product.images %}
+          {% if settings.enable_product_image_zoom %}
+          <div class="image col-sm-2{% cycle 'last-in-row': '', '', ' last-in-row' %}">
+            <a href="{{ image | product_img_url: '1024x1024' }}" class="cloud-zoom-gallery" data-image-id="{{ image.id }}">
+              <img src="{{ image | product_img_url: 'medium' }}" alt="{{ image.alt | escape }}" class="img-responsive img-thumbnail-border" />
+            </a>
+            <br />
+          </div>
+          {% else %}
+          <div class="image col-sm-2{% cycle 'last-in-row': '', '', ' last-in-row' %}">
+            <a href="{{ image | product_img_url: '1024x1024' }}" data-original-image="{{ image | product_img_url: '1024x1024' }}" data-image-id="{{ image.id }}">
+              <img src="{{ image | product_img_url: 'medium' }}" alt="{{ image.alt | escape }}" class="img-responsive img-thumbnail-border" />
+            </a>
+            <br />
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        <!-- End thumbnails -->
+        {% endif %}
+        
+        {% comment %}
+        {% include 'limespot-tracker-product' %}
+		{% include 'limespot-related-product' %}
+        {% endcomment %}
+        
+        <!-- Begin related product -->
+        {% if settings.show_related_products %}
+        	<br />
+          {% include 'related-products' %}
+        {% endif %}
+      </div>
+      
+      <div class="visible-xs">
+        {% if product.images.size > 1 %}
+          <!-- Begin slider -->
+          <div id="carousel-container" class="carousel slide carousel-container-product-xs" data-wrap="false" data-interval="false">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+              {% for image in product.images %}
+              <div class="item {% if forloop.first %}active{% endif %}">
+                <a href="#carousel-container" data-slide="next">
+                  <img src="{{ image | product_img_url: '1024x1024' }}" alt="{{ image.alt | escape }}" class="img-thumbnail-custom" />
+                  <!--<div class="carousel-caption">
+                    ...
+                  </div>-->
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-container" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-container" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <!-- End slider -->
+        {% else %}
+        	<img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}" class="img-responsive img-thumbnail-custom" />
+        {% endif %}
+      </div>
+    </div>
+    <!-- End product photos -->
+    
+    <!-- Begin description -->
+    <div class="span6 col-sm-6 col-md-offset-1 col-md-5">
+      <div class="description" itemprop="description">
+        {{ product.description }}
+      </div>
+      
+      <div class="purchase" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+        {% if product.available %}
+        <link itemprop="availability" href="http://schema.org/InStock" />
+        {% else %}
+        <link itemprop="availability" href="http://schema.org/OutOfStock" />
+        {% endif %}
+		{% assign variant = product.selected_or_first_available_variant %}
+        <h2 class="price" id="price-preview">
+          <span itemprop="price">{{ variant.price_min | money }}</span>{% if variant.price_min < variant.compare_at_price_min %} <del>{{ variant.compare_at_price_min | money }}</del>{% endif %}
+        </h2>
+      </div>
+      
+      {% assign hide_default_title = false %}
+      {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+        {% assign hide_default_title = true %}
+      {% endif %}
+      <br />
+      
+      <div class="row">
+        <div class="col-sm-8">
+          <form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">
+
+            <!-- Begin product options -->
+            <div class="product-options">
+
+              <div class="select clearfix form-group"{% if hide_default_title %} style="display:none"{% endif %}>
+                <label for="product-select">
+                  {% if collection.handle == "jams" %}
+                  Jar Size
+                  {% else %}
+                  Item
+                  {% endif %}
+                </label>
+                <select id="product-select" name="id" class="form-control">
+                  {% for variant in product.variants %}
+                  	<option {% unless variant.available %}disabled="disabled"{% endunless %} {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} value="{{ variant.id }}">{{ variant.title }} for {{ variant.price | money }}{% unless variant.available %} - SOLD OUT{% endunless %}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              {% if settings.display_quantity_dropdown %}
+              <div class="selector-wrapper form-group">
+                <label>Quantity</label>
+                <!--<input id="quantity" type="number" name="quantity" value="1" class="tc item-quantity" />-->
+                <select id="quantity" name="quantity" class="tc item-quantity form-control">
+                  {% for i in (1..20) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              {% endif %}
+
+              <br />
+              <div class="purchase-section{% if product.variants.size > 1 %} multiple{% endif %}">
+                <div class="purchase">
+                  {% unless product.available %}
+                  <a href="javascript:void(0);" class="btn btn-default btn-block disabled" title="Sorry, but this product has been sold out.">sold out</a>
+                  <br />
+                  <p>
+                    <a href="{{ shop.url }}{{ pages['notify-me'].url }}?prod={{ product.handle }}" title="Sign up" class="underline">Sign up</a>
+                    to be notified when this product is back in stock.
+                  </p>
+                  {% else %}
+                  <input type="submit" id="add-to-cart" class="btn btn-default btn-block addtocart" name="add" value="add to cart" />
+                  <div id="cart-animation" style="display:none">1</div>
+                  {% endunless %}
+                </div>
+              </div>
+
+            </div>
+            <!-- End product options -->
+
+          </form>
+        </div>
+      </div>
+      <br />
+      <hr />
+
+      <!-- Begin social buttons -->
+      <div class="social">
+        {% include 'like' %}
+      </div>
+      <!-- End social buttons -->
+      <br /><br />
+      
+      
+      {% if collection %}
+      <div class="row">
+        <div class="col-sm-6">
+          {% if collection.previous_product %}
+          &lt;
+          <a href="{{ collection.previous_product }}" title="See Previous Product" class="underline">Previous Product</a>
+          {% endif %}
+        </div>
+        <div class="col-sm-6 text-right">
+          {% if collection.next_product %}
+          <a href="{{ collection.next_product }}" title="See Next Product" class="underline">Next Product</a>
+          &gt;
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    <!-- End description -->
+
+  </div>
+      
+  <div class="visible-xs">
+    {% comment %}
+  	{% include 'limespot-tracker-product' %}
+    {% include 'limespot-related-product' %}
+    {% endcomment %}
+    
+    <!-- Begin related product -->
+    {% if settings.show_related_products %}
+      <br />
+      {% include 'related-products' %}
+    {% endif %}
+  </div>
+</div> 
+
+<div style="display:none" id="preloading">
+{% for image in product.images offset: 1 %}
+{{ image | product_img_url: '1024x1024' | img_tag }}
+{% endfor %}
+</div>
+
+<script type="text/javascript">
+  var recommendations = [];
+  {% if product.metafields.recommendations.productHandles %}
+  recommendations = jQuery.trim({{ product.metafields.recommendations.productHandles | json }}).split(/[\s,;]+/);
+  {% endif %}
+  
+  relatedProductsFns.init(recommendations);
+</script>

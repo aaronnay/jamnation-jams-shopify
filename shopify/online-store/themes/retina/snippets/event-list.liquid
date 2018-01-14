@@ -1,0 +1,34 @@
+{% assign event_location_ids_delimited = '' %}
+
+{% for i in (1..shop.metafields.sf_events_list.size) %}
+	{% assign event_id = event-list | append: '_' | append: i %}
+	{% assign event_namespace = shop.metafields.sf_events_list[event_id] %}
+	{% assign event = shop.metafields[event_namespace] %}
+	
+	{% if event.name %}
+		{% assign event_location_ids_delimited = event_location_ids_delimited | append: event_namespace | append: ';' %}
+	{% endif %}
+{% endfor %}
+
+{% assign event_location_ids = event_location_ids_delimited | remove_last: ';' | split: ';' %}
+{% assign breakpointIndex = event_location_ids.size | divided_by: 2 %}
+{% assign lengthMod2 = event_location_ids.size | modulo: 2 %}
+{% if lengthMod2 != 0 %}
+	{% assign breakpointIndex = breakpointIndex | plus: 1 %}
+{% endif %}
+
+{% for event_location_id in event_location_ids %}
+	{% if forloop.first %}
+		<div class="six columns offset-by-two alpha">
+    {% elsif forloop.index0 == breakpointIndex %}
+		</div>
+		<div class="six columns omega">
+	{% endif %}
+
+	{% assign event = shop.metafields[event_location_id] %}
+	{% include 'event-list-item' %}
+
+	{% if forloop.last %}
+		</div>
+	{% endif %}
+{% endfor %}

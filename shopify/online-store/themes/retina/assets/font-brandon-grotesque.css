@@ -1,0 +1,32 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 2924172, 2014-11-17T21:28:42-0500
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: BrandonGrotesque-Regular by HVD Fonts
+ * URL: http://www.myfonts.com/fonts/hvdfonts/brandon-grotesque/regular/
+ * Copyright: Copyright (c) 2009 by Hannes von Doehren. All rights reserved.
+ * Licensed pageviews: 10,000
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=2924172
+ * 
+ * © 2014 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/2c9e8c");
+
+  
+@font-face {
+    font-family: 'BrandonGrotesque-Regular';
+    src: url(//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/2C9E8C_0_0.eot?1108683159503963850);
+    src: url(//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/2C9E8C_0_0.eot?%23iefix&1108683159503963850) format('embedded-opentype'), url(//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/2C9E8C_0_0.woff2?1108683159503963850) format('woff2'), url(//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/2C9E8C_0_0.woff?1108683159503963850) format('woff'), url(//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/2C9E8C_0_0.ttf?1108683159503963850) format('truetype');
+}
+ 

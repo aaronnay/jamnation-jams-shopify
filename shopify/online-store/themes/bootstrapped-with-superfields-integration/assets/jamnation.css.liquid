@@ -1,0 +1,334 @@
+body {
+  font-family: BrandonGrotesque-Regular;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.3;
+  background-image: url({{ 'top-rule.png' | asset_url }});
+  background-repeat: repeat-x;
+}
+/* NOTE: THIS WAS A TEMPORARY FIX, IT SHOULD BE CHANGED/REMOVED AND REPLACED GLOBALLY WITH .FONT-AUNTMILDRED! */
+.font-macarons {
+  /*font-family: Macarons;*/
+  font-family: "Aunt Mildred MVB LF";
+  font-weight: normal;
+  font-style: normal;
+}
+.font-auntmildred {
+  font-family: "Aunt Mildred MVB LF";
+  font-style: normal;
+  font-weight: normal;
+}
+h1, h2, h3, h4, h5, h6 {
+  /*font-family: Macarons;*/
+  font-family: "Aunt Mildred MVB LF";
+  font-weight: normal;
+  font-style: normal;
+  margin-top: 10.5px;
+}
+h1.header-bar, h2.header-bar, h3.header-bar, h4.header-bar, h5.header-bar, h6.header-bar {
+  font-family: NaiveBold;
+  font-weight: normal;
+  /*line-height: 3em;*/
+  padding: 18px 0 22px;
+  background-color: #000;
+  color: #fff;
+}
+h1.header-bar {
+  font-size: 33px;
+}
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  h1.header-bar {
+    font-size: 50px;
+  }
+}
+h3.home-page-sublink {
+  padding-top: 2px;
+  font-size: 22px;
+}
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+  h3.home-page-sublink {
+    font-size: 18px;
+  }
+}
+.no-top-margin {
+  margin-top: 10.5px;
+}
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  .no-top-margin {
+	margin-top: 0;
+  }
+}
+.no-bottom-margin {
+  margin-bottom: 0;
+}
+h3.product-title {
+  text-transform: lowercase;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+label {
+  font-weight: normal;
+}
+.standard-margin-top {
+  margin-top: 10.5px;
+}
+.standard-margin-right {
+  margin-right: 10.5px;
+}
+.standard-margin-bottom {
+  margin-bottom: 10.5px;
+}
+.standard-margin-left {
+  margin-left: 10.5px;
+}
+div.right-side-vr {
+  border-right: none;
+}
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  div.right-side-vr {
+	border-right: 1px solid #e6e6e6;
+  }
+}
+
+.body-content {
+  padding-top: 0;
+}
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  .body-content {
+    padding-top: 20px;
+  }
+}
+nav.navbar {
+  font-family: NaiveBold;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+section#nav {
+  font-family: NaiveBold;
+  font-weight: normal;
+  font-size: 22px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* Medium devices only (768px through 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  section#nav {
+    font-size: 18px;
+  }
+}
+/* Small+ devices (tablets, 480px and up) */
+@media (min-width: 480px) {
+  section#nav .dropdown:hover .dropdown-menu {
+  	display: block;
+ 	margin-top: 0; /* remove the gap so it doesn't close */
+  }
+}
+div.foot-rule-xs {
+  padding: 4px 4px 0 4px;
+  background-color: #000;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+div.foot-rule-xs a {
+  font-family: NaiveBold;
+  font-weight: normal;
+  color: #fff;
+}
+div.foot-rule {
+  background-image: url({{ 'foot-rule-sm.png' | asset_url }});
+  background-repeat: no-repeat;
+  background-position: center top;
+  height: 58px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 3em;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+div.foot-rule a {
+  color: #fff;
+  font-family: NaiveBold;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+/* Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  div.foot-rule {
+	background-image: url({{ 'foot-rule-sm.png' | asset_url }});
+  }
+}
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  div.foot-rule {
+	background-image: url({{ 'foot-rule-md.png' | asset_url }});
+  }
+}
+/* Large devices (desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  div.foot-rule {
+	background-image: url({{ 'foot-rule-lg.png' | asset_url }});
+  }
+}
+img.img-thumbnail-custom {
+  border: 1px solid #ccc;
+  border-top: 7px solid #000;
+}
+img.img-thumbnail-border {
+  border: 1px solid #ccc;
+}
+img.img-product-custom {
+  width: 439px;
+  max-height: 480px;
+}
+div.article-header-custom {
+  border-top: 7px solid #000;
+  padding-top: 12px;
+}
+div.feedback-msg {
+  margin-bottom: 100px;
+}
+
+.displayNone {
+  display: none;
+}
+.noWrap {
+  white-space: nowrap;
+}
+.normalWhitespace {
+  white-space: normal;
+}
+.underline {
+  text-decoration: underline;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.lowercase {
+  text-transform: lowercase;
+}
+.text-with-image-32 {
+  line-height: 32px;
+}
+blockquote {
+  background-color: #e6e6e6;
+  border: none;
+  padding: 10px;
+  margin: 0;
+  font-size: inherit;
+}
+
+/* Bootstrap Overrides */
+small, .small {
+  color: #333 !important;
+}
+.nav-divider-pipe {
+  /*line-height: 44px;*/
+  padding-top: 9px;
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 990px;
+  }
+}
+
+.form-control {
+  padding: 10px 8px;
+}
+a {
+  color: #333333;
+}
+a:hover,
+a:focus {
+  color: #222222;
+}
+a.no-underline:hover,
+a.no-underline:focus {
+  color: #222222;
+  text-decoration: none;
+}
+
+.btn {
+  /*font-family: Macarons;*/
+  font-family: "Aunt Mildred MVB LF";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 22px;
+}
+.btn-cart {
+  background-color: #999999;
+  border-color: #999999;
+}
+.btn-cart:hover,
+.btn-cart:focus {
+  background-color: #8C8C8C;
+  border-color: #8C8C8C;
+}
+
+.dropdown-menu {
+  background-color: #222222 !important;
+}
+.dropdown-menu > li > a {
+  color: #A8A8A8;
+  font-weight: normal;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #ffffff !important;
+  background-color: #222222 !important;
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #222222 !important;
+}
+
+.nav-pills > li.active {
+  background-color: #222222 !important;
+}
+.nav-pills > li > a {
+  color: #333333 !important;
+}
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus {
+  color: #ffffff !important;
+  background-color: #222222 !important;
+  border-color: #222222 !important;
+}
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+  color: #ffffff !important;
+  background-color: #222222 !important;
+  border-color: #222222 !important;
+}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #ffffff !important;
+  background-color: #222222 !important;
+}
+
+.centered-pills { text-align:center; }
+.centered-pills ul.nav-pills { display:inline-block; }
+.centered-pills li { display:inline; }
+/*.centered-pills a { float:left; }*/
+* html .centered-pills ul.nav-pills { display:inline; } /* IE6 */
+*+html .centered-pills ul.nav-pills { display:inline; } /* IE7 */
+
+.carousel-control.left,
+.carousel-control.right {
+  background-image: none !important;
+}
+.carousel-container-product-xs {
+  max-width: 490px;
+}

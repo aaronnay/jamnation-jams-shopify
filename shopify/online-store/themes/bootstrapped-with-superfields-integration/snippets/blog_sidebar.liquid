@@ -1,0 +1,33 @@
+<div class="span3 sidebar col-sm-4">
+
+  <img src="//cdn.shopify.com/s/files/1/0665/0171/files/268x247-Blog-Sidebar.png?4617" class="img-responsive img-thumbnail-custom" />
+  
+  <h3 class="lowercase">fruitful endeavors</h3>
+  {% comment %}
+  <p>
+    {{ page_description }}
+  </p>
+  {% endcomment %}
+  <p>
+    Join us as we use the finest local fruits crafted with Fairtrade sugar + spices to make bold jams that support developing countries.
+  </p>
+  <p>
+    From recipes made with our jams to Fairtrade issues to DIY projects with our jars we've got a little something for everyone.
+  </p>
+  <hr />
+  <p class="text-center">
+    Connect with us
+    <br class="visible-xs visible-sm" />
+    {% if settings.facebook_link != blank %}<a href="{{ settings.facebook_link }}" title="{{ shop.name }} on Facebook" target="_blank"><img src="{{ 'social-facebook-light-bg.png' | asset_url }}" alt="Facebook" /></a>{% endif %}          
+    {% if settings.pinterest_link != blank %}<a href="{{ settings.pinterest_link }}" title="{{ shop.name }} on Pinterest" target="_blank"><img src="{{ 'social-pinterest-light-bg.png' | asset_url }}" alt="Pinterest" /></a>{% endif %}
+    {% if settings.twitter_link != blank %}<a href="{{ settings.twitter_link }}" title="{{ shop.name }} on Twitter" target="_blank"><img src="{{ 'social-twitter-light-bg.png' | asset_url }}" alt="Twitter" /></a>{% endif %}
+    {% if settings.instagram_link != blank %}<a href="{{ settings.instagram_link }}" title="{{ shop.name }} on Instagram" target="_blank"><img src="{{ 'social-instagram-light-bg.png' | asset_url }}" alt="Instagram" /></a>{% endif %}
+  </p>
+  <p class="text-center">
+    <a href="{{ shop.url }}{{ blog.url }}.atom" title="Add our RSS Feed to your reader" class="underline">RSS Feed</a>
+  </p>
+  <hr />
+  <a href="/pages/newsletter" class="btn btn-default btn-block normalWhitespace" title="Sign up for our Newsletter">
+    sign up for our newsletter >
+  </a>
+</div>

@@ -1,0 +1,12 @@
+{% comment %}{% capture url %}{{ shop.url}}{{ article.url }}{% endcapture %}{% endcomment %}
+
+Share
+      
+<a href="https://www.facebook.com/dialog/share?app_id=598483580285304&display=page&href={{ url | url_param_escape }}&redirect_uri={{ url | url_param_escape }}" title="Share on Facebook">
+  <img src="{{ 'social-facebook-light-bg.png' | asset_url }}" alt="Facebook" /></a>
+
+<a href="#" target="_blank" title="Share on Pinterest" class="PinterestPinItBtn displayNone">
+    <img src="{{ 'social-pinterest-light-bg.png' | asset_url }}" alt="Pinterest" /></a>
+
+<a href="https://twitter.com/share?url={{ url | url_param_escape }}&text={{ article.title }}&via=JamnationJams" target="_blank" title="Share on Twitter">
+  <img src="{{ 'social-twitter-light-bg.png' | asset_url }}" alt="Twitter" /></a>

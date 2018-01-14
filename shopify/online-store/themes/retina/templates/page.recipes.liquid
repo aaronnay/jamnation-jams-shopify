@@ -1,0 +1,20 @@
+<div class="sixteen columns clearfix collection_nav">
+  <div class="center">
+  	<img src="{{ '960x460-H1-Recipes.png' | file_url }}" alt="{{ blogs.recipes.title }}">
+  </div>
+</div>
+
+<div class="row">
+  <div class="sixteen columns">
+    <h1 class="center">{{ blogs.recipes.title }}</h1>
+    <div class="center">
+      <a href="{{ pages.recipes.url }}">Sort by Course</a>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <a href="{{ pages.recipes-by-jam.url }}">Sort by Jam</a>
+    </div>
+  </div>
+</div>
+
+<div class="sixteen columns page">
+  {{ page.content }}
+</div>

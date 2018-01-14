@@ -1,0 +1,36 @@
+<div class="sixteen columns clearfix collection_nav">
+  <h1 class="header-bar">
+    {{ page.title }}
+  </h1>
+</div>
+
+<div class="sixteen columns page">
+  {% include 'page-multi-column', content: page.content %}
+</div>
+
+{% assign demoPage = pages['demos-content'] %}
+<div class="clearfix"></div>
+<br>
+<br>
+<div class="sixteen columns">
+    <h1 class="header-bar">{{ demoPage.title}}</h1>
+</div>
+
+<div class="sixteen columns page">
+  {% include 'page-multi-column', content: demoPage.content %}
+</div>
+
+{% comment %}
+<!-- Jamnation: This was a prototype. It worked but made it difficult to update. -->
+{% include 'event-list' with 'general_events' %}
+
+<div class="clearfix"></div>
+<br /><br />
+<div class="sixteen columns">
+  <h1 class="header-bar">
+    Demos/Tastings
+  </h1>
+</div>
+
+{% include 'demo-list', event_list: 'demos' %}
+{% endcomment %}

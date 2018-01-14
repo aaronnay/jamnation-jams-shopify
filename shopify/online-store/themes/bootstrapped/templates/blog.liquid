@@ -1,0 +1,76 @@
+<div id="blog">
+  
+  {% if blog.handle == "whats-cooking" %}
+  <img src="{{ 'blog-hdr-whats-cooking.png' | asset_url}}" alt="{{ blog.title }}" class="img-responsive" />
+  {% else %}
+  <h1 class="header-bar text-center">{{ blog.title }}</h1>
+  {% endif %}
+  <br /><br />
+    
+  <!-- Begin content -->
+  <div class="row">
+    
+    {% paginate blog.articles by 5 %}
+    
+    <div class="span9 articles col-sm-8">
+      {% for article in blog.articles %}
+      	{% capture url %}{{ shop.url}}{{ article.url }}{% endcapture %}
+    	{% capture url_formatted %}{{ url | url_param_escape }}{% endcapture %}
+    
+        <div class="SingleArticle" data-url-formatted="{{ url_formatted }}" data-article-title="{{ article.title | url_param_escape }}">
+          <div class="article article-body article-header-custom">
+            <h3 class="lowercase"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+            <br />
+            {{ article.excerpt_or_content }}
+          </div>
+          <hr />
+          <div class="pull-left text-with-image-32">
+            posted on
+            {{ article.published_at | date: "%B %d, %Y" }}
+          </div>
+          <div class="pull-right text-with-image-32">
+            <a href="{{ article.url | append: "#comments" }}" title="Leave a Comment" class="underline">Leave a Comment</a>
+            {% if article.comments_enabled? and article.comments_count > 0 %}({{ article.comments_count }}){% endif %}
+            |
+            {% include 'like-article' %}
+          </div>
+          <div class="clearfix"></div>
+          <br /><br /><br />
+      	</div>
+      {% endfor %}
+      {% include 'pagination' %}
+      <br /><br /><br />
+    </div>
+    
+    {% endpaginate %}
+    
+    <!-- Begin sidebar -->
+    {% include 'blog_sidebar' %}
+    <!-- End sidebar -->
+    
+  </div>
+  <!-- End content -->
+  
+</div>
+
+<!-- Please call pinit.js only once per page -->
+{{ '//assets.pinterest.com/js/pinit.js' | script_tag }}
+
+<script>
+  $(function() {
+    $("img", "div.article-body").addClass("img-responsive");
+    
+    $("div.SingleArticle").each(function(index) {
+      var divSingleArticle = $(this);
+      var divArticleBody = $(this).find("div.article-body");
+      var firstImg = divArticleBody.find("img").filter(":first");
+      
+      // Check if this first img exists
+      if (firstImg.length) {
+        var aPinterestPinItBtn = divSingleArticle.find("a.PinterestPinItBtn");
+        aPinterestPinItBtn.attr("href", "//www.pinterest.com/pin/create%2Fbutton/?url=" + divSingleArticle.attr("data-url-formatted") + "&media=http:" + firstImg.attr('src') + "&description=" + divSingleArticle.attr("data-article-title"));
+		aPinterestPinItBtn.show();
+      }
+    });
+  });
+</script>

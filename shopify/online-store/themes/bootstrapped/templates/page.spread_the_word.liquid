@@ -1,0 +1,105 @@
+<div id="page">
+    <!-- <h1>{{ page.title }}</h1> -->
+    <div class="page-with-contact-form">
+      {{ page.content }}
+      <br /><br />
+            
+      {% form 'contact' %}
+      
+      {% if form.posted_successfully? %}
+      <div class="successForm feedback text-center feedback-msg">
+        Thanks! We can't wait to bring Jamnation to you.
+      </div>
+      {% else %}
+      <div class="row">
+        <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+          {% if form.errors %}
+          <div class="errorForm feedback text-danger">
+            <p class="lead">Oops, sorry. We were unable to submit your inquiry because it contained {{ form.errors | size | pluralize: 'an error', 'a few errors' }}. Please correct the following and submit again:</p>
+            {% for field in form.errors %}
+            <p>The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <div id="contactFormWrapper">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="contactFormName">Your Name*</label>
+                  <input type="text" id="contactFormName" name="contact[name]" class="form-control" />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="contactFormEmail">Your Email*</label>
+                  <input type="email" id="contactFormEmail" name="contact[email]" class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="contactFormStoreName">Store Name*</label>
+                  <input type="text" id="contactFormStoreName" name="contact[store name]" class="form-control" />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="contactFormStorePhone">Store Telephone</label>
+                  <input type="telephone" id="contactFormStorePhone" name="contact[store phone]" class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="contactFormStoreStreetCity">Store Address - Street/City*</label>
+                  <input type="text" id="contactFormStoreStreetCity" name="contact[store street and city]" class="form-control" />
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-3 col-md-2">
+                <div class="form-group">
+                  <label for="contactFormStoreState">State*</label>
+                  <input type="text" id="contactFormStoreState" name="contact[store state]" class="form-control" />
+                </div>
+              </div>
+              <div class="col-xs-8 col-sm-3 col-md-4">
+                <div class="form-group">
+                  <label for="contactFormStoreZip">Zipcode*</label>
+                  <input type="text" id="contactFormStoreZip" name="contact[store zipcode]" class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="contactFormStoreBuyerName">Store Buyer's Name</label>
+                  <input type="text" id="contactFormStoreBuyerName" name="contact[store buyer name]" class="form-control" />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="contactFormStoreBuyerEmail">Store Buyer's Email</label>
+                  <input type="email" id="contactFormStoreBuyerEmail" name="contact[store buyer email]" class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="contactFormNotes">Additional Notes</label>
+              <textarea rows="4" id="contactFormNotes" name="contact[additional notes]" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-6">
+                <input type="submit" id="contactFormSubmit" value="submit" class="btn btn-default btn-block" />
+                <p class="help-block text-center">* Required for Submission</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      
+      {% endform %}
+    </div>
+</div>

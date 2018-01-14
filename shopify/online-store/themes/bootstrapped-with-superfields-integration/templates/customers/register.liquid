@@ -1,0 +1,58 @@
+{% layout settings.customer_layout %}
+
+<div id="customer-register">
+  <h1 class="title header-bar text-center">Create Account</h1>
+  <br /><br />
+  
+  <div class="row">
+    <div id="register" class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+      	{% form 'create_customer' %}
+      	{% if form.errors %}
+        <div>
+          {{ form.errors | default_errors }}
+        </div>
+        {% endif %}
+      
+      	<div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="first_name">First Name*</label>
+              <input type="text" value="" name="customer[first_name]" id="first_name" class="form-control" />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="last_name">Last Name*</label>
+              <input type="text" value="" name="customer[last_name]" id="last_name" class="form-control" />
+            </div>
+          </div>
+        </div>
+      
+      	<div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="email">Email*</label>
+              <input type="email" value="" name="customer[email]" id="email" class="form-control" />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="password">Password*</label>
+              <input type="password" value="" name="customer[password]" id="password" class="form-control" />
+            </div>
+          </div>
+        </div>
+      
+      	<div class="form-group">
+          <div class="action_bottom col-sm-offset-3 col-sm-6">
+            <input class="btn btn-default btn-block" type="submit" value="create account" />
+          </div>
+        </div>
+	    {% endform %}
+    </div><!-- #register -->
+  </div><!-- .row -->
+</div><!-- #customer-register -->
+
+<script type="text/javascript">
+  jamnationFns.forceSsl();
+</script>

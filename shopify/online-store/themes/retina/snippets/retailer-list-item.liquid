@@ -1,0 +1,21 @@
+<p>
+  {% if retailer.url %}
+  <a href="{{ retailer.url }}" class="underline" target="_blank">{{ retailer.name }}</a>
+  {% else %}
+  <span>{{ retailer.name }}</span>
+  {% endif %}
+  
+  {% if retailer.area %}
+  ({{ retailer.area }})
+  {% endif %}
+  
+  {% if retailer.address %}
+  <br />
+  {{ retailer.address }}
+  {% endif %}
+  
+  {% if retailer.phone %}
+  <br />
+  {{ retailer.phone }}
+  {% endif %}
+</p>

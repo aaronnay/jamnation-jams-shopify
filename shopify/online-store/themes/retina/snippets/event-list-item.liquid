@@ -1,0 +1,22 @@
+<p>
+  {% if event.url %}
+  <a href="{{ event.url }}" class="underline" target="_blank"><strong>{{ event.name }}</strong></a>
+  {% else %}
+  <strong>{{ event.name }}</strong>
+  {% endif %}
+  
+  {% if event.date_time %}
+  <br />
+  {{ event.date_time }}
+  {% endif %}
+  
+  {% if event.location %}
+  <br />
+  <strong>{{ event.location }}</strong>
+  {% endif %}
+  
+  {% if event.address %}
+  <br />
+  {{ event.address }}
+  {% endif %}
+</p>

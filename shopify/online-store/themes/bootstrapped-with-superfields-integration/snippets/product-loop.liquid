@@ -1,0 +1,44 @@
+{% capture collection_handle %}{{ product-loop | handleize }}{% endcapture %}
+{% comment %}
+	{% capture url %}{% if collection_handle != "" %}/collections/{{ product-loop }}{{ product.url }}{% else %}{{ product.url }}{% endif %}{% endcapture %}
+{% endcomment %}
+{% capture url %}{% if collection_handle != "" %}/collections/{{ product-loop }}{{ product.url }}{% else %}{{ product.url | within: collection }}{% endif %}{% endcapture %}
+<div class="product col-sm-4">
+  
+  {% if product.price_min < product.compare_at_price_min %}
+    <span class="circle sale badge">Sale</span>
+  {% endif %}
+  
+  <div class="image">
+    {% if product.metafields.prod-details.no-link == 1 %}
+        {% if product.metafields.prod-details.collection-img-index-override and product.metafields.prod-details.collection-img-index-override <= (product.images.size - 1) %}
+          <img src="{{ product.images[product.metafields.prod-details.collection-img-index-override] | product_img_url: 'large' }}" alt="{{ product.title | escape  }}" class="img-responsive img-thumbnail-custom" />
+        {% else %}
+          <img src="{{ product.featured_image | product_img_url: 'large' }}" alt="{{ product.title | escape  }}" class="img-responsive img-thumbnail-custom" />
+        {% endif %}
+    {% else %}
+      <a href="{{ url }}">
+        {% if product.metafields.prod-details.collection-img-index-override and product.metafields.prod-details.collection-img-index-override <= (product.images.size - 1) %}
+          <img src="{{ product.images[product.metafields.prod-details.collection-img-index-override] | product_img_url: 'large' }}" alt="{{ product.title | escape  }}" class="img-responsive img-thumbnail-custom" />
+        {% else %}
+          <img src="{{ product.featured_image | product_img_url: 'large' }}" alt="{{ product.title | escape  }}" class="img-responsive img-thumbnail-custom" />
+        {% endif %}
+      </a>
+    {% endif %}
+  </div>
+  
+  <div class="details text-center">
+    {% if product.metafields.prod-details.no-link == 1 %}
+      	<h3 class="title product-title">{{ product.title }}</h3>
+        <span class="">{{ product.metafields.prod-details.sub-title }}</span>
+    {% else %}
+      <a href="{{ url }}" class="clearfix">
+        <h3 class="title product-title">{{ product.title }}</h3>
+        <span class="">{{ product.metafields.prod-details.sub-title }}</span>
+      </a>
+    {% endif %}
+  </div>
+  <br />
+</div>
+
+{% cycle 'clear-product-loop': '', '', '<div style="clear:both;"></div>' %}

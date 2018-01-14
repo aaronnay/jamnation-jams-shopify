@@ -1,0 +1,170 @@
+<div id="cart">
+  
+  <!-- Begin empty cart -->
+  {% if cart.item_count == 0 %}
+  <div class="well expanded-message">
+    <h2 class="tc">
+      Your cart is empty!
+      <small>
+        <a href="/collections/jams" class="btn btn-default" title="Continue Shopping">
+          continue shopping
+        </a>
+      </small>
+    </h2>
+  </div>
+  <!-- End empty cart -->
+  
+  <!-- Begin cart -->
+  {% else %}
+  <h1 class="header-bar text-center">Your Cart</h1>
+  <br /><br />
+  
+  <form action="/cart" method="post" id="cartform">
+    {% for item in cart.items %}
+    <div class="row">
+      <div class="col-xs-4 col-sm-2 col-md-1">
+        <a href="{{ item.url }}">
+          <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}" class="img-responsive img-thumbnail-custom" />
+          <div class="visible-xs standard-margin-top">
+            <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart btn btn-default btn-cart btn-sm">remove</a>
+          </div>
+        </a>
+      </div>
+      <div class="col-xs-8 col-sm-10 col-md-11">
+        <div class="row">
+          <div class="col-md-3">
+            <a href="{{ item.url }}">
+              <h4>
+                {{ item.product.title }}
+                {% if item.product.variants.size > 1 %}
+                <span class="variant_title">- {{ item.variant.title }}</span>
+                {% endif %}
+              </h4>
+                {% assign property_size = item.properties | size %}
+                {% if property_size > 0 %}
+                    <ul class="small list-unstyled">
+                        {% for p in item.properties %}
+                            <li>
+                            {% unless p.last == blank %}
+                              <!--{{ p.first }}:-->
+                              {% if p.last contains '/uploads/' %}
+                                <a class="lightbox" href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                              {% else %}
+                                {{ p.last }}
+                              {% endif %}
+                              <br>
+                            {% endunless %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </a>
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-sm-6">                
+                <div class="form-inline">
+                  <label for="updates_{{ item.id }}" class="standard-margin-top standard-margin-right">Quantity</label>
+                  <input type="number" min="0" max="1000" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" onfocus="this.select();" class="tc item-quantity form-control standard-margin-right" style="min-width: 100px; max-width: 125px;" />
+                  <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart hidden-xs btn btn-default btn-cart btn-sm">remove</a>
+                </div>
+              </div>
+              <div class="col-sm-6 standard-margin-top">
+                Item Total:
+                {{ item.line_price | money }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    {% endfor %}
+    <div class="row">
+      <div class="col-sm-offset-2 col-sm-10 col-md-offset-1 col-md-11">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-9">
+            <div class="row">
+              <div class="col-xs-4 col-sm-6">
+                <input type="submit" id="update-cart" class="hidden-xs btn btn-default btn-cart btn-sm" name="update" value="update cart" />
+                <input type="submit" id="update-cart" class="visible-xs btn btn-default btn-cart btn-sm" name="update" value="update" />
+              </div>
+              <div class="col-xs-8 col-sm-6 standard-margin-top">
+                Total:
+            	{{ cart.total_price | money }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="checkout-buttons form-group">
+          <label for="note">Special instructions for your order (optional)</label>
+          <textarea id="note" name="note" rows="4" class="form-control">{{ cart.note }}</textarea>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="checkout-buttons form-group">
+          <label for="gift-message">Gift Message (optional &mdash; max 200 characters)</label>
+          <textarea id="gift-message" name="attributes[gift-message]" rows="4" maxlength="200" class="form-control" placeholder="Write a message and we'll include a handwritten enclosure with your order">{{ cart.attributes['gift-message'] }}</textarea>
+        </div>
+      </div>
+    </div>
+    <br />
+    
+    <div class="row">
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="/collections/jams" class="hidden-xs btn btn-default" title="Continue Shopping">
+          continue shopping
+        </a>
+      </div>
+      <div class="col-xs-8 col-sm-8 col-md-8">
+        <div class="row">
+          <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6">
+            <div class="buttons row">
+              <div class="buttons col-sm-6">
+                <input type="submit" id="checkout" class="btn btn-default" name="checkout" value="check out" />
+                <br /><br />
+              </div>
+              {% if additional_checkout_buttons %}
+              <div class="extra-checkout-buttons col-sm-6">
+                {{ content_for_additional_checkout_buttons }}
+              </div>
+              {% endif %}
+            </div>
+
+            <div class="visible-xs">
+              <br />
+              <a href="/collections/jams" class="btn btn-default btn-sm" title="Continue Shopping">
+                continue shopping
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  {% endif %}
+  
+  
+  <!-- End cart -->
+  
+</div> 
+
+
+{% include 'limespot-recently-viewed' %}
+
+<script type="text/javascript">
+  $(function() {
+    $("textarea#gift-message").bind('input propertychange', function() {  
+        var maxLength = $(this).attr('maxlength');  
+        if ($(this).val().length > maxLength) {  
+            $(this).val($(this).val().substring(0, maxLength));  
+        }  
+    });
+  });
+</script>

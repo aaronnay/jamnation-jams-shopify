@@ -1,0 +1,64 @@
+<div id="page">
+    <div class="page-with-contact-form">
+        {{ page.content }}
+        <br /><br />
+
+        {% form 'customer' %}
+
+        {% if form.posted_successfully? %}
+        <div class="successForm feedback text-center feedback-msg">
+            Success! You'll be hearing from us.
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8">
+                <p class="text-center">Sign up to be notified when this product is back in stock.</p>
+            </div>
+        </div>
+        <br /><br />
+
+        <input type="hidden" id="contact_tags" name="contact[tags]" value="" />
+        
+        <div class="row">
+            <div class="col-sm-offset-3 col-sm-6">
+                {% if form.errors %}
+                <div class="errorForm feedback text-danger">
+                    <p class="lead">Oops, sorry. We were unable to register your email because there {{ form.errors | size | pluralize: 'was an error', 'were a few errors' }}. Please correct the following and submit again:</p>
+                    {% for field in form.errors %}
+                    <p>The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div id="contactFormWrapper">
+                    <div class="form-group">
+                        <label for="contact_email">Your Email*</label>
+                        <input type="email" id="contact_email" name="contact[email]" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" id="contactFormSubmit" value="submit" class="btn btn-default btn-block" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% endform %}
+    </div>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    var prod = jamnationFns.getParameterByName("prod");
+
+    if (prod === "") {
+        var prod = jamnationFns.getParameterByName("contact%5Btags%5D");
+    }
+    
+    if (prod === "") {
+      window.location.href = '{{ shop.url }}';
+    }
+
+    $("input#contact_tags").val(prod);  
+  });
+</script>

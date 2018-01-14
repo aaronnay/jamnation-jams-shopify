@@ -1,0 +1,135 @@
+{% layout settings.customer_layout %}
+<div id="customer-account">
+  <h1 class="title header-bar text-center">Account Details</h1>
+  <br /><br />
+  
+  <div class="row">
+    <div id="customer_sidebar" class="col-sm-4">
+      <h2 class="lowercase">
+        {{ customer.name }}
+      </h2>
+      <p class="email note">{{ customer.email }}</p>
+      <p>
+        {% comment %}
+        <button id="btnEditAcceptsMarketing" class="btn btn-default btn-cart btn-sm normalWhitespace lowercase" data-accepts-marketing-toggle-new-val="{% if customer.accepts_marketing %}false{% else %}true{% endif %}">
+          {% if customer.accepts_marketing %}
+          Unsubscribe from Newsletter
+          {% else %}
+          Subscribe to Newsletter
+          {% endif %}
+        </button>
+        {% endcomment %}
+
+        <form>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="cbEditAcceptsMarketing" name="cbEditAcceptsMarketing" {% if customer.accepts_marketing %}checked="checked"{% endif %}>
+              Subscribe to our newsletter
+            </label>
+          </div>
+        </form>
+      </p>
+      <p id="pFeedbackMsg" class="successForm feedback feedback-msg displayNone">
+        <strong>Your newsletter preference has been saved!</strong>
+      </p>
+      <div class="address note">
+        {% if customer.default_address != nil %}
+        <p>{{ customer.default_address.address1 }}</p>
+        {% if customer.default_address.address2 != "" %}
+        <p>{{ customer.default_address.address2 }}</p>
+        {% endif %}
+        <p>{{ customer.default_address.city}}, {% if customer.default_address.province_code %}{{customer.default_address.province_code}} {% endif %}{{ customer.default_address.zip}}</p>
+        <p>{{customer.default_address.country}}</p>
+        <p>{{ customer.default_address.phone }}</p>
+        {% endif %}
+        <p><a id="view_address" href="/account/addresses" class="btn btn-default btn-cart btn-sm lowercase">Edit Addresses</a></p>
+        <p><a href="/account/logout" class="btn btn-default btn-sm">log out</a></p>
+      </div>
+    </div>
+    
+    <div id="customer_orders" class="col-sm-8">
+      {% if customer.orders.size != 0 %}
+      	<h2>recent orders</h2>
+        {% for order in customer.orders %}
+        <div class="row">
+          <div class="col-sm-3">
+            <a href="{{ order.customer_url }}" class="underline" title="Order Details">
+              Order {{ order.name }}
+            </a>
+          </div>
+          <div class="col-sm-2">
+            {{ order.created_at | date: "%m/%d/%Y" }}
+          </div>
+          <div class="col-sm-3">
+            {{ order.total_price | money }}
+          </div>
+          <div class="col-sm-2">
+            {{ order.financial_status }}
+          </div>
+          <div class="col-sm-2">
+            {% if order.fulfillment_status == "unfulfilled" %}
+            	in process
+            {% elsif order.fulfillment_status == "fulfilled" %}
+            	complete
+            {% else %}
+            	{{ order.fulfillment_status }}
+            {% endif %}
+          </div>
+        </div>
+      	<hr />
+        {% endfor %}
+      {% else %}
+      <h2>
+        You haven't placed any orders yet.
+        <small>
+          <a href="/collections/jams" class="btn btn-default btn-sm" title="Continue Shopping">
+            continue shopping
+          </a>
+        </small>
+      </h2>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  // NOTE: NECESSARY FOR API CALLS!
+  jamnationFns.forceSsl();
+  
+  $(function() {  
+    $("input#cbEditAcceptsMarketing").change(function() {
+      var newVal = $(this).is(":checked");
+      var editCust = {"customer": { "id": {{ customer.id }}, "accepts_marketing": newVal }};
+      
+      $.ajax({
+        url: "/admin/customers/{{ customer.id }}.json",
+        type: "PUT",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(editCust),
+        beforeSend: function (xhr) {
+        	xhr.setRequestHeader ("Authorization", "Basic MDE5ZDlmMzY2YmU0NjViN2I1MGY4ZWNkNGUzMTA5NTU6ZmMwNTdlZWVlMDY5YmQxN2Y0OWZiM2VmMjE5OGRjYzE=");
+        	// NOTE: THIS LINE IS NECESSARY! 302 STATUS RETURN WITHOUT IT! GRRRR...
+          	xhr.setRequestHeader("X-Requested-With", {toString: function() { return ""; }});
+        },
+        success: function(data) {
+          //// Reload/refresh the page to show the changes
+          //window.location.replace(window.location.href);
+      	  
+      	  // Show feedback message
+          $("p#pFeedbackMsg").fadeIn("normal", function() {
+            var pFeedbackMsg = $(this);
+            
+            window.setTimeout(function() {
+              pFeedbackMsg.fadeOut();
+            }, 5000);
+          });
+        },
+        error: function(jqXHR, textStatus, errorThrown ) {
+          // Reload/refresh the page to possibly resolve the problem.
+          window.location.replace(window.location.href);
+        }
+      });
+    });
+  });
+</script>

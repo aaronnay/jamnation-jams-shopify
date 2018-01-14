@@ -1,0 +1,21 @@
+<p>
+  {% if demo.url %}
+  <a href="{{ demo.url }}" class="underline" target="_blank">{{ demo.location }}</a>
+  {% else %}
+  <span>{{ demo.location }}</span>
+  {% endif %}
+  
+  {% if demo.area %}
+  ({{ demo.area }})
+  {% endif %}
+  
+  {% if demo.address %}
+  <br />
+  {{ demo.address }}
+  {% endif %}
+  
+  {% if demo.date_time %}
+  <br />
+  <strong>{{ demo.date_time }}</strong>
+  {% endif %}
+</p>

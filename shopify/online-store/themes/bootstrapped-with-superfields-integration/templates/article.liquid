@@ -1,0 +1,140 @@
+{% paginate article.comments by 10 %}
+<div id="article" class="row">
+  
+  <div class="span9 article col-sm-8">
+    
+    {% capture url %}{{ shop.url}}{{ article.url }}{% endcapture %}
+    {% capture url_formatted %}{{ url | url_param_escape }}{% endcapture %}
+    
+    <div class="SingleArticle" data-url-formatted="{{ url_formatted }}" data-article-title="{{ article.title | url_param_escape }}">
+      <!-- Begin article -->
+      <div class="article-body article-header-custom">
+        <h3 class="lowercase">{{ article.title }}</h3>
+        <br />
+        <div id="article-content">
+          {{ article.content }}
+        </div>
+      </div>
+      <!-- End article -->
+
+      <hr />
+      <div class="pull-left text-with-image-32">
+        posted on
+        {{ article.published_at | date: "%B %d, %Y" }}
+      </div>
+      <div class="pull-right text-with-image-32">
+        {% include 'like-article' %}
+      </div>
+      <div class="clearfix"></div>
+      <br /><br />
+
+      <!-- Begin comments -->
+      {% if blog.comments_enabled? %}
+      <div id="comments" class="comments">
+
+        {% if article.comments.size > 0 or comment.created_at %}
+        <h3 class="comment-title">comments</h3>
+
+        {% if comment and comment.created_at %}
+          <div id="comment-{{ comment.id }}" class="comment border-bottom clearfix">
+            <span class="author h4 lowercase font-macarons">{{ comment.author }}</span><br />
+            <span>commented on {{ comment.created_at | date: "%B %d, %Y at %I:%M%p" }}</span>
+            <p>{{ comment.content }}</p>
+          </div> <!-- /.comment -->
+          <hr />
+        {% endif %}
+
+        {% for comment in article.comments %}
+          <div id="comment-{{ comment.id }}" class="comment border-bottom clearfix">
+            <span class="author h4 lowercase font-macarons">{{ comment.author }}</span><br />
+            <span>commented on {{ comment.created_at | date: "%B %d, %Y at %I:%M%p" }}</span>
+            <p>{{ comment.content }}</p>
+          </div> <!-- /.comment -->
+          <hr />
+        {% endfor %}
+
+        {% include 'pagination' %}
+        <br /><br />
+
+        {% endif %}
+        <div class="comment_form">
+          {% form "new_comment", article %}
+          <h3 class="comment-title">leave a comment</h3>        
+
+          {% if form.posted_successfully? %}
+            {% if blog.moderated? %}
+            <p class="subtext success text-success">Successfully posted your comment! It will have to be approved by the blog owner first before showing up.</p>
+            {% else %}
+            <p class="subtext success text-success">Successfully posted your comment!</p>
+            {% endif %}
+          {% endif %}
+
+          {% if form.errors %}
+          <p class="subtext error text-danger">Not all the fields have been filled out correctly</p>
+          {% endif %}
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="comment_author">Your Name*</label>
+                <input type="text" id="comment_author" name="comment[author]" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="comment_email">Your Email*</label>
+                <input type="email" id="comment_email" name="comment[email]" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="comment_body">Comment*</label>
+            <textarea rows="4" id="comment_body" name="comment[body]" class="form-control">{{form.body}}</textarea>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-6">
+              <input type="submit" id="comment-submit" value="submit" class="btn btn-default btn-block" />
+              <p class="help-block text-center">* Required for Submission</p>
+              {% if blog.moderated? %}
+                <p class="help-block text-center">Comments have to be approved before showing up</p>
+              {% endif %}
+            </div>
+          </div>
+
+          {% endform %}
+        </div>
+      </div> 
+      {% endif %}
+      <!-- End comments -->
+      <br /><br /><br />
+    </div>
+  </div>
+  
+  <!-- Begin sidebar -->
+  {% include 'blog_sidebar' %}
+  <!-- End sidebar -->
+  
+</div>
+{% endpaginate %}
+
+<!-- Please call pinit.js only once per page -->
+{{ '//assets.pinterest.com/js/pinit.js' | script_tag }}
+
+<script>
+  $(function() {
+    $("img", "div.article-body").addClass("img-responsive");
+    
+    $("div.SingleArticle").each(function(index) {
+      var divSingleArticle = $(this);
+      var divArticleBody = $(this).find("div.article-body");
+      var firstImg = divArticleBody.find("img").filter(":first");
+      
+      // Check if this first img exists
+      if (firstImg.length) {
+        var aPinterestPinItBtn = divSingleArticle.find("a.PinterestPinItBtn");
+        aPinterestPinItBtn.attr("href", "//www.pinterest.com/pin/create%2Fbutton/?url=" + divSingleArticle.attr("data-url-formatted") + "&media=http:" + firstImg.attr('src') + "&description=" + divSingleArticle.attr("data-article-title"));
+		aPinterestPinItBtn.show();
+      }
+    });
+  });
+</script>

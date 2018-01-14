@@ -1,0 +1,31 @@
+{{ page.content }}
+
+<div class="collection-header">
+    <h1 class="collection-title header-bar text-center">Events</h1>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+        <div class="row">
+          	{% include 'event-list' with 'general_events' %}
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<div class="collection-header">
+    <h1 class="collection-title header-bar text-center">Demos/Tastings</h1>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+        <div class="row">
+          	{% include 'demo-list', event_list: 'demos' %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="sixteen columns clearfix collection_nav">
+  <!-- Jamnation: We have a header image instead of text. -->
+  {% comment %}
+  <h1 class="collection_title">
+    {{ page.title }}
+  </h1>
+  {% endcomment %}
+  <div class="center">
+  	<img src="{{ '960x460-H1-Retailers.png' | file_url }}" alt="{{ page.title }}">
+  </div>
+</div>
+
+<div class="sixteen columns page">
+  {% include 'page-multi-column', content: page.content %}
+</div>
+
+{% comment %}
+<!-- Jamnation: This was a prototype. It worked but made it difficult to update. -->
+<div class="sixteen columns page">
+  {% include 'page-multi-column', content: page.content %}
+</div>
+  
+<div class="six columns offset-by-two alpha">
+  <h3>san francisco</h3>
+  {% include 'retailer-list' with 'san_francisco' %}
+
+  <br />
+  <h3>northern california</h3>
+  {% include 'retailer-list' with 'northern_california' %}
+
+  <br />
+  <h3>pacific northwest</h3>
+  {% include 'retailer-list' with 'pacific_northwest' %}
+
+  <br />
+  <h3>online</h3>
+  {% include 'retailer-list' with 'online' %}
+</div>
+<div class="six columns omega">
+  <h3>east bay</h3>
+  {% include 'retailer-list' with 'east_bay' %}
+
+  <br />
+  <h3>south bay</h3>
+  {% include 'retailer-list' with 'south_bay' %}
+
+  <br />
+  <h3>marin</h3>
+  {% include 'retailer-list' with 'marin' %}
+
+  <br />
+  <h3>southwest</h3>
+  {% include 'retailer-list' with 'southwest' %}
+
+  <br />
+  <h3>midwest</h3>
+  {% include 'retailer-list' with 'midwest' %}
+
+  <br />
+  <h3>east coast</h3>
+  {% include 'retailer-list' with 'east_coast' %}
+</div>
+{% endcomment %}

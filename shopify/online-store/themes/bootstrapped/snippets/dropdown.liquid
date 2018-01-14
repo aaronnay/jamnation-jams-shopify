@@ -1,0 +1,28 @@
+<ul class="nav nav-pills">
+  {% for link in linklists.main-menu.links %}
+  {% if linklists[link.handle] == empty %}
+  <li role="presentation" class="{% if link.active %} active{% endif %}">
+    <a href="{{ link.url }}">
+      <span>{{ link.title }}</span></a>
+  </li>
+  <li class="nav-divider-pipe">|</li>
+  {% else %}
+  <li role="presentation" class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+      <span>{{ link.title }}</span>
+      <!--<span class="caret"></span>-->
+    </a>
+    <ul class="dropdown-menu" role="menu">
+      {% for l in linklists[link.handle].links %}
+      <li role="presentation" class="{% if l.active %} active{% endif %}">
+        <a href="{{ l.url }}">{{ l.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+  {% if link.handle != "about" %}
+  <li class="nav-divider-pipe">|</li>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+</ul>

@@ -1,0 +1,19 @@
+{% capture collection_handle %}{{ product-loop | handleize }}{% endcapture %}
+{% capture url %}{% if collection_handle != "" %}/collections/{{ product-loop }}{{ product.url }}{% else %}{{ product.url | within: collection }}{% endif %}{% endcapture %}
+
+<div id="social" class="clearfix">
+  <p class="share-this">Be the first to share with your friends!</p>
+  
+  <!--<a href="http://www.facebook.com/sharer.php?u={{ shop.url | url_param_escape }}{{ url | url_param_escape }}&t={{ product.title }}" target="_blank" title="Share on Facebook">
+	<img src="{{ 'social-facebook-light-bg.png' | asset_url }}" alt="Facebook" /></a>-->
+  <a href="https://www.facebook.com/dialog/share?app_id=598483580285304&display=page&href={{ shop.url | url_param_escape }}{{ url | url_param_escape }}&redirect_uri={{ shop.url | url_param_escape }}{{ url | url_param_escape }}" title="Share on Facebook">
+	<img src="{{ 'social-facebook-light-bg.png' | asset_url }}" alt="Facebook" /></a>
+  
+  <a href="//www.pinterest.com/pin/create%2Fbutton/?url={{ shop.url | url_param_escape }}{{ url | url_param_escape }}&media=http:{{ product.featured_image | product_img_url: 'large' }}&description={{ product.title | url_param_escape }}" target="_blank" title="Share on Pinterest">
+    <img src="{{ 'social-pinterest-light-bg.png' | asset_url }}" alt="Pinterest" /></a>
+  <!-- Please call pinit.js only once per page -->
+  {{ '//assets.pinterest.com/js/pinit.js' | script_tag }}
+  
+  <a href="https://twitter.com/share?url={{ shop.url | url_param_escape }}{{ url | url_param_escape }}&text={{ product.title }}&via=JamnationJams" target="_blank" title="Share on Twitter">
+    <img src="{{ 'social-twitter-light-bg.png' | asset_url }}" alt="Twitter" /></a>
+</div>
