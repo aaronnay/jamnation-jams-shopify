@@ -6,29 +6,32 @@
     </div>
   {% endif %}
 
-  {% if section.settings.collection_breadcrumb %}
+  {% if section.settings.collection_breadcrumb or section.settings.collection_tags or section.settings.collection_sort %}
     <div class="sixteen columns breadcrumb clearfix">
-      <div class="eight columns breadcrumb_text alpha">
-        <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="item"><span itemprop="name">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
-        &nbsp; / &nbsp;
-        <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ collection.url }}" title="{{ collection.title | escape }}" itemprop="item"><span itemprop="name">{{ collection.title }}</span></a></span>
-        {% if current_tags %}
-          {% for tag in current_tags %}
-            &nbsp; / &nbsp;
-            <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}" title="{{ tag | escape }}" itemprop="item"><span itemprop="name">{{ tag }}</span></a></span>
-          {% endfor %}
-        {% endif %}
 
-        {% if paginate.pages != 0 %}
-          &nbsp; / &nbsp; {{ 'general.breadcrumbs.page' | t: current_page: paginate.current_page, pages: paginate.pages }}
-        {% endif %}
-      </div>
+      {% if section.settings.collection_breadcrumb %}
+        <div class="sixteen columns breadcrumb_text alpha omega">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="item"><span itemprop="name">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+          &nbsp; / &nbsp;
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ collection.url }}" title="{{ collection.title | escape }}" itemprop="item"><span itemprop="name">{{ collection.title }}</span></a></span>
+          {% if current_tags %}
+            {% for tag in current_tags %}
+              &nbsp; / &nbsp;
+              <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}" title="{{ tag | escape }}" itemprop="item"><span itemprop="name">{{ tag }}</span></a></span>
+            {% endfor %}
+          {% endif %}
+
+          {% if paginate.pages != 0 %}
+            &nbsp; / &nbsp; {{ 'general.breadcrumbs.page' | t: current_page: paginate.current_page, pages: paginate.pages }}
+          {% endif %}
+        </div>
+      {% endif %}
 
       {% if collection.handle != blank and collection.products_count > 0 %}
-        <div class="eight columns section_select omega {% if section.settings.collection_breadcrumb == false %}offset-by-eight{% endif %}">
+        <div class="sixteen columns center alpha omega">
           {% if section.settings.collection_tags %}
           	<!-- Jamnation: Show link menu instead of select -->
-            <ul class="blog_list toggle_list tag-filter-list">
+            <ul class="blog_list toggle_list display-block tag-filter-list">
               <li>
                 <a {% unless current_tags %}class="active"{% endunless %} href="{% if collection.handle == "all" %}/collections/all{% else %}{{ collection.url }}{% endif %}">{{ 'collections.general.all_collection_title' | t: title: collection.title }}</a>
               </li>
