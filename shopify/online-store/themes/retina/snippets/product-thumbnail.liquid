@@ -142,6 +142,22 @@
           </p>
         {% endif %}
 
+        {% if settings.product_description_position == "top" %}
+          {% if settings.description_words == "none" %}
+            {{ product.description | split: '<!-- split -->' | first }}
+          {% else %}
+            {% if tabs %}
+              {{ product.description | split: '<!-- split -->' | first }}
+            {% else %}
+              <p>{{ product.description | strip_html | truncatewords: settings.description_words }}</p>
+            {% endif %}
+          {% endif %}
+          <p>
+            <a href="{{ product.url | within: collection }}" class="view_product_info" title="{{ product.title | escape }}">{{ 'collections.general.view_product_details_html' | t }}</a>
+          </p>
+          <hr />
+        {% endif %}
+
         {% assign variant = product.selected_or_first_available_variant %}
 
         {% unless collection_handles contains 'coming-soon' %}
@@ -165,21 +181,6 @@
 
           {% include 'product-notify-me' %}
         {% endunless %}
-        {% if settings.product_description_position == "top" %}
-          {% if settings.description_words == "none" %}
-            {{ product.description | split: '<!-- split -->' | first }}
-          {% else %}
-            {% if tabs %}
-              {{ product.description | split: '<!-- split -->' | first }}
-            {% else %}
-              <p>{{ product.description | strip_html | truncatewords: settings.description_words }}</p>
-            {% endif %}
-          {% endif %}
-          <p>
-            <a href="{{ product.url | within: collection }}" class="view_product_info" title="{{ product.title | escape }}">{{ 'collections.general.view_product_details_html' | t }}</a>
-          </p>
-          <hr />
-        {% endif %}
 
         <!-- Jamnation: We have multiple product templates. -->
         {% comment %}
