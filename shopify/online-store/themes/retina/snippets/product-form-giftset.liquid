@@ -69,9 +69,10 @@
       <div>
         <label for="quantity">{{ 'products.product.quantity' | t }}</label>
         <!-- Jamnation: Show dropdown instead of text input -->
-        <!-- Jamnation: Giftsets can only be added 1 at a time -->
+        {% assign max_quantity = 20 %}
+        {% if variant.inventory_management != blank and variant.inventory_quantity > 0 and variant.inventory_policy == "deny" %}{% assign max_quantity = variant.inventory_quantity %}{% endif %}
         <select class="quantity" name="quantity" id="quantity">
-          {% for i in (1..1) %}
+          {% for i in (1..max_quantity) %}
           	<option value="{{ i }}">{{ i }}</option>
           {% endfor %}
         </select>
