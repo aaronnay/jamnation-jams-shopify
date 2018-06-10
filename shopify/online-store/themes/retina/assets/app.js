@@ -527,6 +527,18 @@ var product = {
     });
 
     
+      $('.swatch :radio').change(function() {
+        var optionIndex = $(this).closest('.swatch').attr('data-option-index');
+        var optionValue = $(this).val();
+        $(this)
+          .closest('form')
+          .find('.single-option-selector')
+          .eq(optionIndex)
+          .val(optionValue)
+          .trigger('change');
+
+      });
+    
 
   },
   unload: function($target){
@@ -1029,6 +1041,17 @@ $(function() {
   });
 
   
+    $('.swatch :radio').change(function() {
+      var optionIndex = $(this).closest('.swatch').attr('data-option-index');
+      var optionValue = $(this).val();
+      $(this)
+        .closest('form')
+        .find('.single-option-selector')
+        .eq(optionIndex)
+        .val(optionValue)
+        .trigger('change');
+    });
+  
 
   $('.maps').on('click', function () {
     $('.maps iframe').css("pointer-events", "auto");
@@ -1229,6 +1252,13 @@ selectCallback = function(variant, selector) {
     $('.sku span', $product).text(variant.sku);
     $(".notify_form_message", $product).attr("value", $(".notify_form_message", $product).data('body') + " - " + variant.title);
 
+    
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = $productForm.find('.swatch[data-option-index="' + escape(i) + '"] :radio[value="' + variant.options[i].replace(/\"/g,'\\"') +'"]');
+        if (radioButton.length) {
+          radioButton.get(0).checked = true;
+        }
+      }
     
   }
 

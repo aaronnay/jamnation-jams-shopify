@@ -1629,7 +1629,7 @@ ul.tabs {
   input[type="search"]::-webkit-search-results-decoration { display: none; }
 
   select {
-    background: #fff url(//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/select.png?12511276839638488268) no-repeat right center;
+    background: #fff url(//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/select.png?14706873973808001292) no-repeat right center;
     cursor: pointer;
     padding: 10px 2em 10px 8px;
     -webkit-padding-end: 30px;
@@ -3400,7 +3400,7 @@ ul.tabs {
   color: #ffffff;
 
   
-    background: url(//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/password-page-background.jpg?12511276839638488268) center center;
+    background: url(//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/password-page-background.jpg?14706873973808001292) center center;
   
 
   
@@ -3627,6 +3627,147 @@ ul.tabs {
 
 /* #Swatch Styles
 ================================================== */
+
+  .selector-wrapper, .select { display: none; }
+  .swatch_options {
+    margin-bottom: 1em;
+  }
+  .swatch .option_title {
+    margin: 0.5em 0;
+    font-weight: bold;
+  }
+  /* Hide radio buttons.*/
+  .swatch input {
+    display:none;
+  }
+  .swatch label {
+    float:left;
+    min-width: 25px;
+    height: 35px;
+    margin:0;
+    font-size:13px;
+    text-align:center;
+    line-height: 35px;
+    white-space:nowrap;
+    text-transform:uppercase;
+    cursor: pointer;
+    padding: 0 10px;
+    font-weight: bold;
+  }
+  .swatch .color label {
+    min-width: 32px;
+    height: 22px;
+    line-height: 22px;
+    background-position: center;
+    background-size: cover;
+  }
+  .swatch-element {
+    border: #e2e2e2 1px solid;
+  }
+  .swatch-element.color {
+    padding: 5px;
+  }
+  .swatch-element.color, .swatch-element.color label {
+    border: #e2e2e2 1px solid;
+  }
+  .swatch-element.color { border-color: transparent; }
+  .color.swatch-element label { padding:0; }
+
+  .swatch_options input:checked + .swatch-element {
+    border-color: #666;
+  }
+  .swatch .swatch-element {
+    float:left;
+    -webkit-transform:translateZ(0);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0px 10px 15px 0;
+    position:relative;
+  }
+  .crossed-out { position:absolute; width:100%; height:100%; left:0; top:0; }
+  .swatch .swatch-element .crossed-out { display:none; }
+  .swatch .swatch-element.soldout .crossed-out { display:block; height: 100%; width: 100%; }
+  .swatch .swatch-element.soldout label {
+    filter: alpha(opacity=60);
+    -khtml-opacity: 0.6;
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+  }
+  /* Tooltips */
+  .swatch .tooltip {
+    text-align:center;
+    background: #333;
+    background: rgba(#333, 0.9);
+    color:#fff;
+    bottom:100%;
+    padding: 5px 10px;
+    display:block;
+    position:absolute;
+    width:120px;
+    font-size: 13px;
+    left:-35px;
+    margin-bottom:15px;
+    /* Make it invisible by default */
+    filter:alpha(opacity=0);
+    -khtml-opacity: 0;
+    -moz-opacity: 0;
+    opacity:0;
+    visibility:hidden;
+    /* Animations */
+    -webkit-transform: translateY(10px);
+       -moz-transform: translateY(10px);
+        -ms-transform: translateY(10px);
+         -o-transform: translateY(10px);
+            transform: translateY(10px);
+    -webkit-transition: all .25s ease-out;
+       -moz-transition: all .25s ease-out;
+        -ms-transition: all .25s ease-out;
+         -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+    -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+        -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+         -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    z-index: 10000;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+  }
+  .swatch .tooltip:before {
+    bottom:-20px;
+    content:" ";
+    display:block;
+    height:20px;
+    left:0;
+    position:absolute;
+    width:100%;
+  }
+  /* CSS triangle */
+  .swatch .tooltip:after {
+    border-left:solid transparent 10px;
+    border-right:solid transparent 10px;
+    border-top:solid rgba(#333, 0.9) 10px;
+    bottom:-10px;
+    content:" ";
+    height:0;
+    left:50%;
+    margin-left:-13px;
+    position:absolute;
+    width:0;
+  }
+  .swatch .swatch-element:hover .tooltip {
+    filter:alpha(opacity=100);
+    -khtml-opacity:1;
+    -moz-opacity:1;
+    opacity:1;
+    visibility:visible;
+    -webkit-transform:translateY(0px);
+       -moz-transform:translateY(0px);
+        -ms-transform:translateY(0px);
+         -o-transform:translateY(0px);
+            transform:translateY(0px);
+  }
 
 
 
@@ -4168,7 +4309,7 @@ html[xmlns] .slides {display: block;}
 #fancybox-loading div {
   width: 44px;
   height: 44px;
-  background: url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/loader.gif?12511276839638488268') center center no-repeat;
+  background: url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/loader.gif?14706873973808001292') center center no-repeat;
   background-size: 32px 32px;
   display: block !important;
 }
@@ -4446,7 +4587,7 @@ html[xmlns] .slides {display: block;}
   font-size:11px;
 }
 .cloudzoom-blank {
-  background-image:url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/blank.gif?12511276839638488268');
+  background-image:url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/blank.gif?14706873973808001292');
 }
 div.cloudzoom-ajax-loader {
   display: none;
@@ -5021,11 +5162,11 @@ div.cloudzoom-ajax-loader {
 ================================================== */
 @font-face {
   font-family: 'retina';
-  src: url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.eot?12511276839638488268');
-  src: url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.eot?%23iefix&12511276839638488268') format('embedded-opentype'),
-       url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.woff?12511276839638488268') format('woff'),
-       url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.ttf?12511276839638488268') format('truetype'),
-       url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.svg?12511276839638488268') format('svg');
+  src: url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.eot?14706873973808001292');
+  src: url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.eot?%23iefix&14706873973808001292') format('embedded-opentype'),
+       url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.woff?14706873973808001292') format('woff'),
+       url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.ttf?14706873973808001292') format('truetype'),
+       url('//cdn.shopify.com/s/files/1/0665/0171/t/5/assets/retina.svg?14706873973808001292') format('svg');
   font-weight: normal;
   font-style: normal;
 }
